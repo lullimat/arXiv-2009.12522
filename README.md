@@ -1,7 +1,9 @@
 # Structure and Isotropy of Lattice Pressure Tensors for Multi-range Potentials
 
 **This repository is being constantly updated !!**
+
 **At the moment only the README.md is available and soon the Jupyter notebook will be pushed**
+
 **I am trying to provide a reasonable interface for this first paper**
 
 
