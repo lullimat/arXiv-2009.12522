@@ -2,11 +2,7 @@
 
 **This repository is being constantly updated !!**
 
-**At the moment only the README.md is available and soon the Jupyter notebook will be pushed**
-
-**I am trying to provide a reasonable interface for this first paper**
-
-**A first version should be ready by tomorrow September 30th 2020**
+**The first version of the Jupyter notebook is now available**
 
 Welcome to the repository related to the paper [https://arxiv.org/abs/2009.12522](https://arxiv.org/abs/2009.12522).
 In order to use this repository you should have cloned it from the parent project [idea.deploy](https://github.com/lullimat/idea.deploy) in the directory ./papers by means of the local python script idpy-papers.py.
