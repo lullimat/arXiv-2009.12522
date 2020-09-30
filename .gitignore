@@ -1,0 +1,7 @@
+*.ipynb_checkpoints
+*~
+IsoPlotsHistos
+SCEqCache
+reproduced-figures/
+reproduced-results/
+!.gitignore
