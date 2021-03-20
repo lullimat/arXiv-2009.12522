@@ -2,6 +2,7 @@
 *~
 IsoPlotsHistos
 SCEqCache
+AverageProfiles
 reproduced-figures/
 reproduced-results/
 !.gitignore
