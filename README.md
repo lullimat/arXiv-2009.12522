@@ -1,10 +1,11 @@
 # Structure and Isotropy of Lattice Pressure Tensors for Multi-range Potentials
 
-**This repository is being constantly updated !!**
+**This repository matches the published version of the paper**
+[https://journals.aps.org/pre/abstract/10.1103/PhysRevE.103.063309](https://journals.aps.org/pre/abstract/10.1103/PhysRevE.103.063309)
 
-**The first version of the Jupyter notebook is now available**
+This project will be updated in order be kept functional for further updates to [**idea.deploy**](https://github.com/lullimat/idea.deploy).
 
-Welcome to the repository related to the paper [https://arxiv.org/abs/2009.12522](https://arxiv.org/abs/2009.12522).
+Welcome to the repository related to the paper published on [https://journals.aps.org/pre/abstract/10.1103/PhysRevE.103.063309](https://journals.aps.org/pre/abstract/10.1103/PhysRevE.103.063309) and on arXiv [https://arxiv.org/abs/2009.12522](https://arxiv.org/abs/2009.12522).
 In order to use this repository you should have cloned it from the parent project [idea.deploy](https://github.com/lullimat/idea.deploy) in the directory ./papers by means of the local python script idpy-papers.py.
 
 In order to open the present Jupyter notebook "ShanChenPressureTensorIsotropy.ipynb" you should perform the following steps
