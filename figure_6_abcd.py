@@ -19,23 +19,23 @@ Gs = {psis[0]: [-3.6],
 
 lw = 2.9
 
-E6_P2F6_sym = sp.symbols("\\boldsymbol{E}^{(6)}_{P2\,F6}")
-E8_P2F8_sym = sp.symbols("\\boldsymbol{E}^{(8)}_{P2\,F8}")
-E6_P4F6_sym = sp.symbols("\\boldsymbol{E}^{(6)}_{P4\,F6}")
-E8_P4F6_sym = sp.symbols("\\boldsymbol{E}^{(8)}_{P4\,F6}")
-E10_P2F10_sym = sp.symbols("\\boldsymbol{E}^{(10)}_{P2\,F10}")
-E10_P4F6_sym = sp.symbols("\\boldsymbol{E}^{(10)}_{P4\,F6}")
-E12_P2F12_sym = sp.symbols("\\boldsymbol{E}^{(12)}_{P2\,F12}")
-E12_P4F6_sym = sp.symbols("\\boldsymbol{E}^{(12)}_{P4\,F6}")
+E6_P2F6_sym = sp.symbols("\\bf{E}^{(6)}_{P2\,F6}")
+E8_P2F8_sym = sp.symbols("\\bf{E}^{(8)}_{P2\,F8}")
+E6_P4F6_sym = sp.symbols("\\bf{E}^{(6)}_{P4\,F6}")
+E8_P4F6_sym = sp.symbols("\\bf{E}^{(8)}_{P4\,F6}")
+E10_P2F10_sym = sp.symbols("\\bf{E}^{(10)}_{P2\,F10}")
+E10_P4F6_sym = sp.symbols("\\bf{E}^{(10)}_{P4\,F6}")
+E12_P2F12_sym = sp.symbols("\\bf{E}^{(12)}_{P2\,F12}")
+E12_P4F6_sym = sp.symbols("\\bf{E}^{(12)}_{P4\,F6}")
 
-E6_P2F6_str = r'$\boldsymbol{E}^{(6)}_{P2,F6}$'
-E8_P2F8_str = r'$\boldsymbol{E}^{(8)}_{P2,F8}$'
-E6_P4F6_str = r'$\boldsymbol{E}^{(6)}_{P4,F6}$'
-E8_P4F6_str = r'$\boldsymbol{E}^{(8)}_{P4,F6}$'
-E10_P2F10_str = r'$\boldsymbol{E}^{(10)}_{P2,F10}$'
-E10_P4F6_str = r'$\boldsymbol{E}^{(10)}_{P4,F6}$'
-E12_P2F12_str = r'$\boldsymbol{E}^{(12)}_{P2,F12}$'
-E12_P4F6_str = r'$\boldsymbol{E}^{(12)}_{P4,F6}$'
+E6_P2F6_str = r'$\bf{E}^{(6)}_{P2,F6}$'
+E8_P2F8_str = r'$\bf{E}^{(8)}_{P2,F8}$'
+E6_P4F6_str = r'$\bf{E}^{(6)}_{P4,F6}$'
+E8_P4F6_str = r'$\bf{E}^{(8)}_{P4,F6}$'
+E10_P2F10_str = r'$\bf{E}^{(10)}_{P2,F10}$'
+E10_P4F6_str = r'$\bf{E}^{(10)}_{P4,F6}$'
+E12_P2F12_str = r'$\bf{E}^{(12)}_{P2,F12}$'
+E12_P4F6_str = r'$\bf{E}^{(12)}_{P4,F6}$'
 
 
 stencil_string = {E6_P2F6_sym: 'E6_P2F6',
@@ -241,11 +241,16 @@ Plotting
 from matplotlib import rc, rcParams
 import matplotlib
 import matplotlib.pyplot as plt
-rc('font',**{'family':'STIXGeneral'})
-rc('mathtext', **{'fontset': 'stix'})
-rc('text', usetex=True)
-rcParams['text.latex.preview'] = True
-rcParams['text.latex.preamble']=[r"\usepackage{amsmath, sourcesanspro}"]
+from idpy.Utils.Plots import SetAxPanelLabelCoords, SetMatplotlibLatexParamas, CreateFiguresPanels, SetAxTicksFont
+
+SetMatplotlibLatexParamas([rc], [rcParams])
+
+if False:
+    rc('font',**{'family':'STIXGeneral'})
+    rc('mathtext', **{'fontset': 'stix'})
+    rc('text', usetex=True)
+    rcParams['text.latex.preview'] = True
+    rcParams['text.latex.preamble']=[r"\usepackage{amsmath, sourcesanspro}"]
 
 from pathlib import Path
 reproduced_results = Path("reproduced-results")
@@ -291,8 +296,11 @@ if True:
             lgnd_points.get_texts()[_lgnd_i].set_color(_color)
             _lgnd_i += 1
 
-        for tick in axs[0, 0].yaxis.get_major_ticks():
-            tick.label.set_fontsize(_fs)
+        if False:
+            for tick in axs[0, 0].yaxis.get_major_ticks():
+                tick.label.set_fontsize(_fs)
+        else:
+            SetAxTicksFont(axs[0, 0], _fs)
 
         axs[0, 0].set_xlim([(1 - 0.05) * 255/5, 255//2])
         axs[0, 0].set_ylabel('$\\langle u(r) \\rangle /c_s^2$', fontsize=_fs)
@@ -328,11 +336,14 @@ if True:
             lgnd_points.get_texts()[_lgnd_i].set_color(_color)
             _lgnd_i += 1
 
-        for tick in axs[1, 0].yaxis.get_major_ticks():
-            tick.label.set_fontsize(_fs)
-        for tick in axs[1, 0].xaxis.get_major_ticks():
-            tick.label.set_fontsize(_fs)
-
+        if False:
+            for tick in axs[1, 0].yaxis.get_major_ticks():
+                tick.label.set_fontsize(_fs)
+            for tick in axs[1, 0].xaxis.get_major_ticks():
+                tick.label.set_fontsize(_fs)
+        else:
+            SetAxTicksFont(axs[1, 0], _fs)
+            
         axs[1, 0].set_xlim([(1 - 0.05) * 255/5, 255//2])
         axs[1, 0].set_ylabel('$\\langle u(r) \\rangle /c_s^2$', fontsize=_fs)
         axs[1, 0].set_xlabel('$r$', fontsize=_fs)        
@@ -370,8 +381,12 @@ if True:
             lgnd_points.get_texts()[_lgnd_i].set_color(_color)
             _lgnd_i += 1        
 
-        for tick in axs[0, 1].yaxis.get_major_ticks():
-            tick.label.set_fontsize(_fs)
+
+        if False:
+            for tick in axs[0, 1].yaxis.get_major_ticks():
+                tick.label.set_fontsize(_fs)
+        else:
+            SetAxTicksFont(axs[0, 1], _fs)
 
         axs[0, 1].set_xlim([(1 - 0.05) * 255/5, 255//2])
         axs[0, 1].set_ylabel('$\\langle u(r) \\rangle /c_s^2$', fontsize=_fs)
@@ -405,11 +420,13 @@ if True:
             lgnd_points.get_texts()[_lgnd_i].set_color(_color)
             _lgnd_i += 1        
 
-        for tick in axs[1, 1].yaxis.get_major_ticks():
-            tick.label.set_fontsize(_fs)
-        for tick in axs[1, 1].xaxis.get_major_ticks():
-            tick.label.set_fontsize(_fs)
-
+        if False:
+            for tick in axs[1, 1].yaxis.get_major_ticks():
+                tick.label.set_fontsize(_fs)
+            for tick in axs[1, 1].xaxis.get_major_ticks():
+                tick.label.set_fontsize(_fs)
+        else:
+            SetAxTicksFont(axs[1, 1], _fs)
 
         axs[1, 1].set_xlim([(1 - 0.05) * 255/5, 255//2])
         axs[1, 1].set_ylabel('$\\langle u(r) \\rangle /c_s^2$', fontsize=_fs)

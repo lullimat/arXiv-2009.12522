@@ -27,14 +27,14 @@ Gs = {psis[0]: [-3.6],
 
 Ls = [255, 351]
 
-E6_P2F6_sym = sp_symbols("\\boldsymbol{E}^{(6)}_{P2\,F6}")
-E8_P2F8_sym = sp_symbols("\\boldsymbol{E}^{(8)}_{P2\,F8}")
-E6_P4F6_sym = sp_symbols("\\boldsymbol{E}^{(6)}_{P4\,F6}")
-E8_P4F6_sym = sp_symbols("\\boldsymbol{E}^{(8)}_{P4\,F6}")
-E10_P2F10_sym = sp_symbols("\\boldsymbol{E}^{(10)}_{P2\,F10}")
-E10_P4F6_sym = sp_symbols("\\boldsymbol{E}^{(10)}_{P4\,F6}")
-E12_P2F12_sym = sp_symbols("\\boldsymbol{E}^{(12)}_{P2\,F12}")
-E12_P4F6_sym = sp_symbols("\\boldsymbol{E}^{(12)}_{P4\,F6}")
+E6_P2F6_sym = sp_symbols("\\bf{E}^{(6)}_{P2\,F6}")
+E8_P2F8_sym = sp_symbols("\\bf{E}^{(8)}_{P2\,F8}")
+E6_P4F6_sym = sp_symbols("\\bf{E}^{(6)}_{P4\,F6}")
+E8_P4F6_sym = sp_symbols("\\bf{E}^{(8)}_{P4\,F6}")
+E10_P2F10_sym = sp_symbols("\\bf{E}^{(10)}_{P2\,F10}")
+E10_P4F6_sym = sp_symbols("\\bf{E}^{(10)}_{P4\,F6}")
+E12_P2F12_sym = sp_symbols("\\bf{E}^{(12)}_{P2\,F12}")
+E12_P4F6_sym = sp_symbols("\\bf{E}^{(12)}_{P4\,F6}")
 
 stencil_string = {E6_P2F6_sym: 'E6_P2F6', 
                   E6_P4F6_sym: 'E6_P4F6', 
@@ -127,7 +127,7 @@ import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
 from matplotlib.ticker import FormatStrFormatter
 
-from mpl_toolkits.axes_grid.inset_locator import (inset_axes, InsetPosition,
+from mpl_toolkits.axes_grid1.inset_locator import (inset_axes, InsetPosition,
                                                   mark_inset)
 
 import matplotlib.ticker as ticker
@@ -368,12 +368,18 @@ else:
     
 
 from matplotlib import rc, rcParams
-rc('font',**{'family':'sans-serif','sans-serif':['Helvetica']})
-## for Palatino and other serif fonts use:
-#rc('font',**{'family':'serif','serif':['Palatino']})
-rc('text', usetex=True)
-rcParams['text.latex.preamble']=[r"\usepackage{amsmath}\usepackage{xcolor}"]
-rcParams["xtick.top"] = True
+from idpy.Utils.Plots import SetAxPanelLabelCoords, SetMatplotlibLatexParamas, CreateFiguresPanels, SetAxTicksFont
+from idpy.Utils.Plots import SetAxTicksFont
+
+SetMatplotlibLatexParamas([rc], [rcParams])
+
+if False:
+    rc('font',**{'family':'sans-serif','sans-serif':['Helvetica']})
+    ## for Palatino and other serif fonts use:
+    #rc('font',**{'family':'serif','serif':['Palatino']})
+    rc('text', usetex=True)
+    rcParams['text.latex.preamble']=[r"\usepackage{amsmath}\usepackage{xcolor}"]
+    rcParams["xtick.top"] = True
 
 x_range = [2e-7,2e-2]
 #y_range = [0, 1.05]
@@ -416,16 +422,19 @@ ax1_bis.yaxis.set_label_coords(0.15,0.5)
 ax1_bis.set_ylabel('$1 - F$', fontsize=8)
 
 ## Setting tivks size
-for tick in ax1_bis.yaxis.get_major_ticks():
-    tick.label.set_fontsize(5)
-for tick in ax1_bis.xaxis.get_major_ticks():
-    tick.label.set_fontsize(5)
-
+if False:
+    for tick in ax1_bis.yaxis.get_major_ticks():
+        tick.label.set_fontsize(5)
+    for tick in ax1_bis.xaxis.get_major_ticks():
+        tick.label.set_fontsize(5)
+else:
+    SetAxTicksFont(ax1_bis, 5)                
+        
 ###############################
 
 ## Try using colors and speciy P and F  \;\;\, (a)
-ax1.text(5e-7, 0.65, r'$\boldsymbol{E}^{(6)}_{P4,F6}$', color = 'red', fontsize = f_s)
-ax1.text(1e-5, 0.65, r'$\boldsymbol{E}^{(6)}_{P2,F6}$', color = 'blue', fontsize = f_s)
+ax1.text(5e-7, 0.65, r'$\bf{E}^{(6)}_{P4,F6}$', color = 'red', fontsize = f_s)
+ax1.text(1e-5, 0.65, r'$\bf{E}^{(6)}_{P2,F6}$', color = 'blue', fontsize = f_s)
 ax1.text(2e-3, 0.65, '$\\psi = \\exp(-1/n)$', fontsize = f_s)
 ax1.text(pos_c_label0[0], pos_c_label0[1], '$G c_s^2 = -3.6$', fontsize = f_s)
 ax1.text(pos_label[0], pos_label[1], '$(a)$', fontsize = f_s)
@@ -468,17 +477,20 @@ ax1_1_bis.yaxis.set_label_coords(0.15,0.5)
 ax1_1_bis.set_ylabel('$1 - F$', fontsize=8)
 
 ## Setting ticks size
-for tick in ax1_1_bis.yaxis.get_major_ticks():
-    tick.label.set_fontsize(5)
-for tick in ax1_1_bis.xaxis.get_major_ticks():
-    tick.label.set_fontsize(5)
-
+if False:
+    for tick in ax1_1_bis.yaxis.get_major_ticks():
+        tick.label.set_fontsize(5)
+    for tick in ax1_1_bis.xaxis.get_major_ticks():
+        tick.label.set_fontsize(5)
+else:
+    SetAxTicksFont(ax1_1_bis, 5)                
+    
 ###############################
 
 ##ax1_1.axvline(x = 3.2e-4, ls = '--', color = 'black', linewidth = 0.5)
 
-ax1_1.text(1e-4, 0.65, r'$\boldsymbol{E}^{(8)}_{P4,F6}$', color = 'red', fontsize = f_s)
-ax1_1.text(2e-3, 0.65, r'$\boldsymbol{E}^{(8)}_{P2,F8}$', color = 'blue', fontsize = f_s)
+ax1_1.text(1e-4, 0.65, r'$\bf{E}^{(8)}_{P4,F6}$', color = 'red', fontsize = f_s)
+ax1_1.text(2e-3, 0.65, r'$\bf{E}^{(8)}_{P2,F8}$', color = 'blue', fontsize = f_s)
 ax1_1.text(pos_c_label0[0], pos_c_label0[1], '$G c_s^2 = -3.6$', fontsize = f_s)
 ax1_1.text(pos_label[0], pos_label[1], '$(b)$', fontsize = f_s)
 ax1_1.set_xlim(x_range)

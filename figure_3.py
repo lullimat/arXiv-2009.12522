@@ -29,14 +29,14 @@ Gs = {psis[0]: [-2.6, -3.1, -3.6],
 
 Ls = [127, 159, 191, 223, 255, 287, 319, 351]
 
-E6_P2F6_sym = sp_symbols("\\boldsymbol{E}^{(6)}_{P2\,F6}")
-E6_P4F6_sym = sp_symbols("\\boldsymbol{E}^{(6)}_{P4\,F6}")
-E8_P2F8_sym = sp_symbols("\\boldsymbol{E}^{(8)}_{P2\,F8}")
-E8_P4F6_sym = sp_symbols("\\boldsymbol{E}^{(8)}_{P4\,F6}")
-E10_P2F10_sym = sp_symbols("\\boldsymbol{E}^{(10)}_{P2\,F10}")
-E10_P4F6_sym = sp_symbols("\\boldsymbol{E}^{(10)}_{P4\,F6}")
-E12_P2F12_sym = sp_symbols("\\boldsymbol{E}^{(12)}_{P2\,F12}")
-E12_P4F6_sym = sp_symbols("\\boldsymbol{E}^{(12)}_{P4\,F6}")
+E6_P2F6_sym = sp_symbols("\\bf{E}^{(6)}_{P2\,F6}")
+E6_P4F6_sym = sp_symbols("\\bf{E}^{(6)}_{P4\,F6}")
+E8_P2F8_sym = sp_symbols("\\bf{E}^{(8)}_{P2\,F8}")
+E8_P4F6_sym = sp_symbols("\\bf{E}^{(8)}_{P4\,F6}")
+E10_P2F10_sym = sp_symbols("\\bf{E}^{(10)}_{P2\,F10}")
+E10_P4F6_sym = sp_symbols("\\bf{E}^{(10)}_{P4\,F6}")
+E12_P2F12_sym = sp_symbols("\\bf{E}^{(12)}_{P2\,F12}")
+E12_P4F6_sym = sp_symbols("\\bf{E}^{(12)}_{P4\,F6}")
 
 '''
 Getting usual weights
@@ -189,9 +189,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
 
-from mpl_toolkits.axes_grid.inset_locator import (inset_axes, InsetPosition,
-                                                  mark_inset)
-
 import matplotlib.ticker as ticker
 
 ##################################################
@@ -199,16 +196,21 @@ import matplotlib.ticker as ticker
 ##################################################
 
 from matplotlib import rc, rcParams
-##rc('font',**{'family':'sans-serif','sans-serif':['Helvetica']})
-## for Palatino and other serif fonts use:
-#rc('font',**{'family':'serif','serif':['Palatino']})
-rc('font',**{'family':'STIXGeneral'})
-rc('mathtext', **{'fontset': 'stix'})
-rc('text', usetex=True)
-## To align latex text and symbols!!!
-## https://stackoverflow.com/questions/40424249/vertical-alignment-of-matplotlib-legend-labels-with-latex-math
-rcParams['text.latex.preview'] = True
-rcParams['text.latex.preamble']=[r"\usepackage{amsmath, sourcesanspro}"]
+from idpy.Utils.Plots import SetAxPanelLabelCoords, SetMatplotlibLatexParamas, CreateFiguresPanels
+
+SetMatplotlibLatexParamas([rc], [rcParams])
+
+if False:
+    ##rc('font',**{'family':'sans-serif','sans-serif':['Helvetica']})
+    ## for Palatino and other serif fonts use:
+    #rc('font',**{'family':'serif','serif':['Palatino']})
+    rc('font',**{'family':'STIXGeneral'})
+    rc('mathtext', **{'fontset': 'stix'})
+    rc('text', usetex=True)
+    ## To align latex text and symbols!!!
+    ## https://stackoverflow.com/questions/40424249/vertical-alignment-of-matplotlib-legend-labels-with-latex-math
+    rcParams['text.latex.preview'] = True
+    rcParams['text.latex.preamble']=[r"\usepackage{amsmath, sourcesanspro}"]
 
 x_lim = 0.042
 rm1_axis = np.linspace(0, x_lim, 2**7)
@@ -232,24 +234,24 @@ dashed[-1.75] = '-.'
 
 f_s = 14
 #################### SIZES ####################
-fig = plt.figure(figsize=(5.2, 10))
+fig = plt.figure(figsize=(5.2, 12))
 ###############################################
 
 #################### PANEL (a) ####################
 mark_s = 9
 
-ax1 = plt.subplot2grid((4,2), (0,0), colspan=1, rowspan=1)
+ax1 = plt.subplot2grid((5,2), (1,0), colspan=1, rowspan=1)
 
 black_lines = []
 black_labels = []
 G = -2.6
 red_p, = ax1.plot(1./gibbs_rad['G=' + str(G)]['E6_P4F6']['P4Iso=' + 'Yes']['droplet'], 
                   delta_p['G=' + str(G)]['E6_P4F6']['P4Iso=' + 'Yes']['droplet'], 'x', color = 'red', 
-                  markersize = mark_s, label = r'$\boldsymbol{E}^{(6)}_{P4,F6}$')
+                  markersize = mark_s, label = r'$\bf{E}^{(6)}_{P4,F6}$')
 
 blue_p, = ax1.plot(1./gibbs_rad['G=' + str(G)]['E6_P2F6']['P4Iso=' + 'No']['droplet'], 
                    delta_p['G=' + str(G)]['E6_P2F6']['P4Iso=' + 'No']['droplet'], '+', color = 'blue', 
-                   markersize = mark_s, label = r'$\boldsymbol{E}^{(6)}_{P2,F6}$')
+                   markersize = mark_s, label = r'$\bf{E}^{(6)}_{P2,F6}$')
 
 line_swap, = ax1.plot(rm1_axis, 
                       rm1_axis * sigma_f['G=' + str(G)]['E6_P2F6']['P4Iso=' + 'No']['droplet'], 
@@ -308,8 +310,8 @@ lgnd_points.get_texts()[1].set_color("blue")
 lgnd_points.get_texts()[0].set_size("large")
 lgnd_points.get_texts()[1].set_size("large")
 
-lgnd_points.legendHandles[0]._legmarker.set_markersize(6)
-lgnd_points.legendHandles[1]._legmarker.set_markersize(6)
+lgnd_points.legend_handles[0]._sizes = [6]
+lgnd_points.legend_handles[1]._sizes = [6]
 
 ### lines legends
 black_lines.insert(0, plt.Line2D(rm1_axis, rm1_axis, linestyle='none', label = '$\psi = \exp(-1/n)$'))
@@ -347,18 +349,18 @@ ax1.text(_panel_label_pos[0], _panel_label_pos[1], '$(a)$',
 #################### PANEL (b) ####################
 mark_s = 9
 
-ax2 = plt.subplot2grid((4,2), (1,0), colspan=1, rowspan=1)
+ax2 = plt.subplot2grid((5,2), (2,0), colspan=1, rowspan=1)
 
 black_lines = []
 black_labels = []
 G = -2.6
 red_p, = ax2.plot(1./gibbs_rad['G=' + str(G)]['E8_P4F6']['P4Iso=' + 'Yes']['droplet'], 
                   delta_p['G=' + str(G)]['E8_P4F6']['P4Iso=' + 'Yes']['droplet'], 'x', color = 'red', 
-                  markersize = mark_s, label = r'$\boldsymbol{E}^{(8)}_{P4,F6}$')
+                  markersize = mark_s, label = r'$\bf{E}^{(8)}_{P4,F6}$')
 
 blue_p, = ax2.plot(1./gibbs_rad['G=' + str(G)]['E8_P2F8']['P4Iso=' + 'No']['droplet'], 
                    delta_p['G=' + str(G)]['E8_P2F8']['P4Iso=' + 'No']['droplet'], '+', color = 'blue', 
-                   markersize = mark_s, label = r'$\boldsymbol{E}^{(8)}_{P2,F8}$')
+                   markersize = mark_s, label = r'$\bf{E}^{(8)}_{P2,F8}$')
 
 line_swap, = ax2.plot(rm1_axis, 
                       rm1_axis * sigma_f['G=' + str(G)]['E8_P2F8']['P4Iso=' + 'No']['droplet'], 
@@ -413,8 +415,8 @@ lgnd_points.get_texts()[1].set_color("blue")
 lgnd_points.get_texts()[0].set_size("large")
 lgnd_points.get_texts()[1].set_size("large")
 
-lgnd_points.legendHandles[0]._legmarker.set_markersize(6)
-lgnd_points.legendHandles[1]._legmarker.set_markersize(6)
+lgnd_points.legend_handles[0]._sizes = [6]
+lgnd_points.legend_handles[1]._sizes = [6]
 
 #ml = [method_name for method_name in dir(lgnd_lines.get_texts()[0]) if callable(getattr(lgnd_lines.get_texts()[0], method_name))]
 #print(ml)
@@ -439,18 +441,18 @@ ax2.text(_panel_label_pos[0], _panel_label_pos[1], '$(b)$',
 #################### PANEL (c) ####################
 mark_s = 9
 
-ax3 = plt.subplot2grid((4,2), (2,0), colspan=1, rowspan=1)
+ax3 = plt.subplot2grid((5,2), (3,0), colspan=1, rowspan=1)
 
 black_lines = []
 black_labels = []
 G = -2.6
 red_p, = ax3.plot(1./gibbs_rad['G=' + str(G)]['E8_P4F6']['P4Iso=' + 'Yes']['droplet'], 
                   delta_p['G=' + str(G)]['E8_P4F6']['P4Iso=' + 'Yes']['droplet'], 'x', color = 'red', 
-                  markersize = mark_s, label = r'$\boldsymbol{E}^{(10)}_{P4,F6}$')
+                  markersize = mark_s, label = r'$\bf{E}^{(10)}_{P4,F6}$')
 
 blue_p, = ax3.plot(1./gibbs_rad['G=' + str(G)]['E8_P2F8']['P4Iso=' + 'No']['droplet'], 
                    delta_p['G=' + str(G)]['E8_P2F8']['P4Iso=' + 'No']['droplet'], '+', color = 'blue', 
-                   markersize = mark_s, label = r'$\boldsymbol{E}^{(10)}_{P2,F10}$')
+                   markersize = mark_s, label = r'$\bf{E}^{(10)}_{P2,F10}$')
 
 line_swap, = ax3.plot(rm1_axis, 
                       rm1_axis * sigma_f['G=' + str(G)]['E8_P2F8']['P4Iso=' + 'No']['droplet'], 
@@ -504,8 +506,8 @@ lgnd_points.get_texts()[1].set_color("blue")
 lgnd_points.get_texts()[0].set_size("large")
 lgnd_points.get_texts()[1].set_size("large")
 
-lgnd_points.legendHandles[0]._legmarker.set_markersize(6)
-lgnd_points.legendHandles[1]._legmarker.set_markersize(6)
+lgnd_points.legend_handles[0]._sizes = [6]
+lgnd_points.legend_handles[1]._sizes = [6]
 
 #ml = [method_name for method_name in dir(lgnd_lines.get_texts()[0]) if callable(getattr(lgnd_lines.get_texts()[0], method_name))]
 #print(ml)
@@ -529,18 +531,18 @@ ax3.text(_panel_label_pos[0], _panel_label_pos[1], '$(c)$',
 #################### PANEL (d) ####################
 mark_s = 9
 
-ax4 = plt.subplot2grid((4,2), (3,0), colspan=1, rowspan=1)
+ax4 = plt.subplot2grid((5,2), (4,0), colspan=1, rowspan=1)
 
 black_lines = []
 black_labels = []
 G = -2.6
 red_p, = ax4.plot(1./gibbs_rad['G=' + str(G)]['E12_P4F6']['P4Iso=' + 'Yes']['droplet'], 
                   delta_p['G=' + str(G)]['E12_P4F6']['P4Iso=' + 'Yes']['droplet'], 'x', color = 'red', 
-                  markersize = mark_s, label = r'$\boldsymbol{E}^{(12)}_{P4,F6}$')
+                  markersize = mark_s, label = r'$\bf{E}^{(12)}_{P4,F6}$')
 
 blue_p, = ax4.plot(1./gibbs_rad['G=' + str(G)]['E12_P2F12']['P4Iso=' + 'No']['droplet'], 
                    delta_p['G=' + str(G)]['E12_P2F12']['P4Iso=' + 'No']['droplet'], '+', color = 'blue', 
-                   markersize = mark_s, label = r'$\boldsymbol{E}^{(12)}_{P2,F12}$')
+                   markersize = mark_s, label = r'$\bf{E}^{(12)}_{P2,F12}$')
 
 line_swap, = ax4.plot(rm1_axis, 
                       rm1_axis * sigma_f['G=' + str(G)]['E12_P2F12']['P4Iso=' + 'No']['droplet'], 
@@ -594,8 +596,8 @@ lgnd_points.get_texts()[1].set_color("blue")
 lgnd_points.get_texts()[0].set_size("large")
 lgnd_points.get_texts()[1].set_size("large")
 
-lgnd_points.legendHandles[0]._legmarker.set_markersize(6)
-lgnd_points.legendHandles[1]._legmarker.set_markersize(6)
+lgnd_points.legend_handles[0]._sizes = [6]
+lgnd_points.legend_handles[1]._sizes = [6]
 
 #ml = [method_name for method_name in dir(lgnd_lines.get_texts()[0]) if callable(getattr(lgnd_lines.get_texts()[0], method_name))]
 #print(ml)
@@ -622,17 +624,17 @@ ax4.text(_panel_label_pos[0], _panel_label_pos[1], '$(d)$',
 
 
 #################### PANEL (e) ####################
-ax5 = plt.subplot2grid((4,2), (0,1), colspan=1, rowspan=1)
+ax5 = plt.subplot2grid((5,2), (1,1), colspan=1, rowspan=1)
 black_lines = []
 
 G = -1.4
 red_p, = ax5.plot(1./gibbs_rad['G=' + str(G)]['E6_P4F6']['P4Iso=' + 'Yes']['droplet'], 
                   delta_p['G=' + str(G)]['E6_P4F6']['P4Iso=' + 'Yes']['droplet'], 'x', color = 'red',
-                  markersize = mark_s, label = r'$\boldsymbol{E}^{(6)}_{P4,F6}$')
+                  markersize = mark_s, label = r'$\bf{E}^{(6)}_{P4,F6}$')
 
 blue_p, = ax5.plot(1./gibbs_rad['G=' + str(G)]['E6_P2F6']['P4Iso=' + 'No']['droplet'], 
                    delta_p['G=' + str(G)]['E6_P2F6']['P4Iso=' + 'No']['droplet'], '+', color = 'blue',
-                   markersize = mark_s, label = r'$\boldsymbol{E}^{(6)}_{P2,F6}$')
+                   markersize = mark_s, label = r'$\bf{E}^{(6)}_{P2,F6}$')
 
 line_swap, = ax5.plot(rm1_axis,
                       rm1_axis * sigma_f['G=' + str(G)]['E6_P2F6']['P4Iso=' + 'No']['droplet'],
@@ -676,8 +678,8 @@ lgnd_points2.get_texts()[1].set_color("blue")
 lgnd_points2.get_texts()[0].set_size("large")
 lgnd_points2.get_texts()[1].set_size("large")
 
-lgnd_points2.legendHandles[0]._legmarker.set_markersize(6)
-lgnd_points2.legendHandles[1]._legmarker.set_markersize(6)
+lgnd_points2.legend_handles[0]._sizes = [6]
+lgnd_points2.legend_handles[1]._sizes = [6]
 
 ### lines legends
 black_lines.insert(0, plt.Line2D(rm1_axis, rm1_axis, linestyle='none', label = '$\psi = 1 - \exp(-n)$'))
@@ -704,17 +706,17 @@ ax5.text(_panel_label_pos[0], _panel_label_pos[1], '$(e)$',
          transform = ax5.transAxes, fontsize=f_s)
 
 #################### PANEL (f) ####################
-ax6 = plt.subplot2grid((4,2), (1,1), colspan=1, rowspan=1)
+ax6 = plt.subplot2grid((5,2), (2,1), colspan=1, rowspan=1)
 black_lines = []
 
 G = -1.4
 red_p, = ax6.plot(1./gibbs_rad['G=' + str(G)]['E8_P4F6']['P4Iso=' + 'Yes']['droplet'], 
                   delta_p['G=' + str(G)]['E8_P4F6']['P4Iso=' + 'Yes']['droplet'], 'x', color = 'red',
-                  markersize = mark_s, label = r'$\boldsymbol{E}^{(8)}_{P4,F6}$')
+                  markersize = mark_s, label = r'$\bf{E}^{(8)}_{P4,F6}$')
 
 blue_p, = ax6.plot(1./gibbs_rad['G=' + str(G)]['E8_P2F8']['P4Iso=' + 'No']['droplet'], 
                    delta_p['G=' + str(G)]['E8_P2F8']['P4Iso=' + 'No']['droplet'], '+', color = 'blue',
-                   markersize = mark_s, label = r'$\boldsymbol{E}^{(8)}_{P2,F8}$')
+                   markersize = mark_s, label = r'$\bf{E}^{(8)}_{P2,F8}$')
 
 line_swap, = ax6.plot(rm1_axis,
                       rm1_axis * sigma_f['G=' + str(G)]['E8_P2F8']['P4Iso=' + 'No']['droplet'],
@@ -758,8 +760,8 @@ lgnd_points.get_texts()[1].set_color("blue")
 lgnd_points.get_texts()[0].set_size("large")
 lgnd_points.get_texts()[1].set_size("large")
 
-lgnd_points.legendHandles[0]._legmarker.set_markersize(6)
-lgnd_points.legendHandles[1]._legmarker.set_markersize(6)
+lgnd_points.legend_handles[0]._sizes = [6]
+lgnd_points.legend_handles[1]._sizes = [6]
 
 #ax6.legend(loc='upper center', ncol=1, fancybox=True,
 #           bbox_to_anchor=(0.5, 1.7), frameon=False, prop={'size': legend_size})
@@ -773,17 +775,17 @@ ax6.text(_panel_label_pos[0], _panel_label_pos[1], '$(f)$',
 
 
 #################### PANEL (g) ####################
-ax7 = plt.subplot2grid((4,2), (2,1), colspan=1, rowspan=1)
+ax7 = plt.subplot2grid((5,2), (3,1), colspan=1, rowspan=1)
 black_lines = []
 
 G = -1.4
 red_p, = ax7.plot(1./gibbs_rad['G=' + str(G)]['E10_P4F6']['P4Iso=' + 'Yes']['droplet'], 
                   delta_p['G=' + str(G)]['E10_P4F6']['P4Iso=' + 'Yes']['droplet'], 'x', color = 'red',
-                  markersize = mark_s, label = r'$\boldsymbol{E}^{(10)}_{P4,F6}$')
+                  markersize = mark_s, label = r'$\bf{E}^{(10)}_{P4,F6}$')
 
 blue_p, = ax7.plot(1./gibbs_rad['G=' + str(G)]['E10_P2F10']['P4Iso=' + 'No']['droplet'], 
                    delta_p['G=' + str(G)]['E10_P2F10']['P4Iso=' + 'No']['droplet'], '+', color = 'blue',
-                   markersize = mark_s, label = r'$\boldsymbol{E}^{(10)}_{P2,F10}$')
+                   markersize = mark_s, label = r'$\bf{E}^{(10)}_{P2,F10}$')
 
 line_swap, = ax7.plot(rm1_axis,
                       rm1_axis * sigma_f['G=' + str(G)]['E10_P2F10']['P4Iso=' + 'No']['droplet'],
@@ -827,8 +829,8 @@ lgnd_points.get_texts()[1].set_color("blue")
 lgnd_points.get_texts()[0].set_size("large")
 lgnd_points.get_texts()[1].set_size("large")
 
-lgnd_points.legendHandles[0]._legmarker.set_markersize(6)
-lgnd_points.legendHandles[1]._legmarker.set_markersize(6)
+lgnd_points.legend_handles[0]._sizes = [6]
+lgnd_points.legend_handles[1]._sizes = [6]
 
 #ax7.legend(loc='upper center', ncol=1, fancybox=True,
 #           bbox_to_anchor=(0.5, 1.7), frameon=False, prop={'size': legend_size})
@@ -841,17 +843,17 @@ ax7.text(_panel_label_pos[0], _panel_label_pos[1], '$(g)$',
          transform = ax7.transAxes, fontsize=f_s)
 
 #################### PANEL (h) ####################
-ax8 = plt.subplot2grid((4,2), (3,1), colspan=1, rowspan=1)
+ax8 = plt.subplot2grid((5,2), (4,1), colspan=1, rowspan=1)
 black_lines = []
 
 G = -1.4
 red_p, = ax8.plot(1./gibbs_rad['G=' + str(G)]['E12_P4F6']['P4Iso=' + 'Yes']['droplet'], 
                   delta_p['G=' + str(G)]['E12_P4F6']['P4Iso=' + 'Yes']['droplet'], 'x', color = 'red',
-                  markersize = mark_s, label = r'$\boldsymbol{E}^{(12)}_{P4,F6}$')
+                  markersize = mark_s, label = r'$\bf{E}^{(12)}_{P4,F6}$')
 
 blue_p, = ax8.plot(1./gibbs_rad['G=' + str(G)]['E12_P2F12']['P4Iso=' + 'No']['droplet'], 
                    delta_p['G=' + str(G)]['E12_P2F12']['P4Iso=' + 'No']['droplet'], '+', color = 'blue',
-                   markersize = mark_s, label = r'$\boldsymbol{E}^{(12)}_{P2,F12}$')
+                   markersize = mark_s, label = r'$\bf{E}^{(12)}_{P2,F12}$')
 
 line_swap, = ax8.plot(rm1_axis,
                       rm1_axis * sigma_f['G=' + str(G)]['E12_P2F12']['P4Iso=' + 'No']['droplet'],
@@ -895,8 +897,8 @@ lgnd_points.get_texts()[1].set_color("blue")
 lgnd_points.get_texts()[0].set_size("large")
 lgnd_points.get_texts()[1].set_size("large")
 
-lgnd_points.legendHandles[0]._legmarker.set_markersize(6)
-lgnd_points.legendHandles[1]._legmarker.set_markersize(6)
+lgnd_points.legend_handles[0]._sizes = [6]
+lgnd_points.legend_handles[1]._sizes = [6]
 
 #ax8.legend(loc='upper center', ncol=1, fancybox=True,
 #           bbox_to_anchor=(0.5, 1.7), frameon=False, prop={'size': legend_size})
@@ -918,6 +920,7 @@ reproduced_figures = Path("reproduced-figures")
 if not reproduced_figures.is_dir():
     reproduced_figures.mkdir()
 
-plt.savefig(reproduced_figures / 'figure_3.png',
-            bbox_inches = 'tight', dpi = _dpi)
+plt.savefig(reproduced_figures / 'figure_3.png', dpi = _dpi)
+plt.savefig(reproduced_figures / 'figure_3.pdf', dpi = _dpi)
+
 plt.close()

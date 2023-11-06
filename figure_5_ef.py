@@ -28,12 +28,12 @@ Gs = {psis[0]: [-3.6],
 
 Ls = [255]
 
-E6_P2F6_sym = sp_symbols("\\boldsymbol{E}^{(6)}_{P2\,F6}")
-E8_P2F8_sym = sp_symbols("\\boldsymbol{E}^{(8)}_{P2\,F8}")
-E6_P4F6_sym = sp_symbols("\\boldsymbol{E}^{(6)}_{P4\,F6}")
-E8_P4F6_sym = sp_symbols("\\boldsymbol{E}^{(8)}_{P4\,F6}")
-E10_P2F10_sym = sp_symbols("\\boldsymbol{E}^{(10)}_{P2\,F10}")
-E10_P4F6_sym = sp_symbols("\\boldsymbol{E}^{(10)}_{P4\,F6}")
+E6_P2F6_sym = sp_symbols("\\bf{E}^{(6)}_{P2\,F6}")
+E8_P2F8_sym = sp_symbols("\\bf{E}^{(8)}_{P2\,F8}")
+E6_P4F6_sym = sp_symbols("\\bf{E}^{(6)}_{P4\,F6}")
+E8_P4F6_sym = sp_symbols("\\bf{E}^{(8)}_{P4\,F6}")
+E10_P2F10_sym = sp_symbols("\\bf{E}^{(10)}_{P2\,F10}")
+E10_P4F6_sym = sp_symbols("\\bf{E}^{(10)}_{P4\,F6}")
 
 stencil_string = {E6_P2F6_sym: 'E6_P2F6', 
                   E6_P4F6_sym: 'E6_P4F6', 
@@ -144,9 +144,6 @@ import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
 from matplotlib.ticker import FormatStrFormatter
 
-from mpl_toolkits.axes_grid.inset_locator import (inset_axes, InsetPosition,
-                                                  mark_inset)
-
 import matplotlib.ticker as ticker
 
 
@@ -155,11 +152,16 @@ import matplotlib.ticker as ticker
 ##################################################
 
 from matplotlib import rc, rcParams
-rc('font',**{'family':'sans-serif','sans-serif':['Helvetica']})
-## for Palatino and other serif fonts use:
-#rc('font',**{'family':'serif','serif':['Palatino']})
-rc('text', usetex=True)
-rcParams['text.latex.preamble']=[r"\usepackage{amsmath}"]
+from idpy.Utils.Plots import SetAxPanelLabelCoords, SetMatplotlibLatexParamas, CreateFiguresPanels
+
+SetMatplotlibLatexParamas([rc], [rcParams])
+
+if False:
+    rc('font',**{'family':'sans-serif','sans-serif':['Helvetica']})
+    ## for Palatino and other serif fonts use:
+    #rc('font',**{'family':'serif','serif':['Palatino']})
+    rc('text', usetex=True)
+    rcParams['text.latex.preamble']=[r"\usepackage{amsmath}"]
 
 G = -3.6
 LX = 255
@@ -237,7 +239,7 @@ _psi_label_pos = (0.31, 1.065)
 _g_label_pos = (0.85, 1.065)
 
 
-ax1.text(_e_label_pos[0], _e_label_pos[1], r'$\boldsymbol{E}^{(10)}_{P4,F6}$',
+ax1.text(_e_label_pos[0], _e_label_pos[1], r'$\bf{E}^{(10)}_{P4,F6}$',
          color = 'red', transform = ax1.transAxes, fontsize = f_s)
 ax1.text(_panel_label_pos[0], _panel_label_pos[1], '$(e)$',
          transform = ax1.transAxes, fontsize = f_s)
@@ -260,7 +262,7 @@ ax2.add_artist(circle_2niso)
 im2 = ax2.imshow(norm_2niso_lin, cmap = 'rainbow', vmin = 0., interpolation='bicubic')
 ax2.plot([LX//2 + 0.5], [LX//2 + 0.5], 'o', color = 'black', markersize = 6)
 
-ax2.text(_e_label_pos[0], _e_label_pos[1], r'$\boldsymbol{E}^{(10)}_{P2,F10}$',
+ax2.text(_e_label_pos[0], _e_label_pos[1], r'$\bf{E}^{(10)}_{P2,F10}$',
          transform = ax2.transAxes, color = 'blue', fontsize = f_s)
 ax2.text(_panel_label_pos[0], _panel_label_pos[1], '$(f)$',
          transform = ax2.transAxes, fontsize = f_s)

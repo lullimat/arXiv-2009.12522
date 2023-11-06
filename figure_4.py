@@ -29,14 +29,14 @@ Gs = {psis[0]: [-2.6, -3.1, -3.6],
 
 Ls = [127, 159, 191, 223, 255, 287, 319, 351]
 
-E6_P2F6_sym = sp_symbols("\\boldsymbol{E}^{(6)}_{P2\,F6}")
-E6_P4F6_sym = sp_symbols("\\boldsymbol{E}^{(6)}_{P4\,F6}")
-E8_P2F8_sym = sp_symbols("\\boldsymbol{E}^{(8)}_{P2\,F8}")
-E8_P4F6_sym = sp_symbols("\\boldsymbol{E}^{(8)}_{P4\,F6}")
-E10_P2F10_sym = sp_symbols("\\boldsymbol{E}^{(10)}_{P2\,F10}")
-E10_P4F6_sym = sp_symbols("\\boldsymbol{E}^{(10)}_{P4\,F6}")
-E12_P2F12_sym = sp_symbols("\\boldsymbol{E}^{(12)}_{P2\,F12}")
-E12_P4F6_sym = sp_symbols("\\boldsymbol{E}^{(12)}_{P4\,F6}")
+E6_P2F6_sym = sp_symbols("\\bf{E}^{(6)}_{P2\,F6}")
+E6_P4F6_sym = sp_symbols("\\bf{E}^{(6)}_{P4\,F6}")
+E8_P2F8_sym = sp_symbols("\\bf{E}^{(8)}_{P2\,F8}")
+E8_P4F6_sym = sp_symbols("\\bf{E}^{(8)}_{P4\,F6}")
+E10_P2F10_sym = sp_symbols("\\bf{E}^{(10)}_{P2\,F10}")
+E10_P4F6_sym = sp_symbols("\\bf{E}^{(10)}_{P4\,F6}")
+E12_P2F12_sym = sp_symbols("\\bf{E}^{(12)}_{P2\,F12}")
+E12_P4F6_sym = sp_symbols("\\bf{E}^{(12)}_{P4\,F6}")
 
 '''
 Getting usual weights
@@ -210,7 +210,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
 
-from mpl_toolkits.axes_grid.inset_locator import (inset_axes, InsetPosition,
+from mpl_toolkits.axes_grid1.inset_locator import (inset_axes, InsetPosition,
                                                   mark_inset)
 
 import matplotlib.ticker as ticker
@@ -220,14 +220,20 @@ import matplotlib.ticker as ticker
 ##################################################
 
 from matplotlib import rc, rcParams
-rc('font',**{'family':'sans-serif','sans-serif':['Helvetica']})
-## for Palatino and other serif fonts use:
-#rc('font',**{'family':'serif','serif':['Palatino']})
-rc('text', usetex=True)
-## To align latex text and symbols!!!
-## https://stackoverflow.com/questions/40424249/vertical-alignment-of-matplotlib-legend-labels-with-latex-math
-rcParams['text.latex.preview'] = True
-rcParams['text.latex.preamble']=[r"\usepackage{amsmath}"]
+from idpy.Utils.Plots import SetAxPanelLabelCoords, SetMatplotlibLatexParamas, CreateFiguresPanels
+from idpy.Utils.Plots import SetAxTicksFont
+
+SetMatplotlibLatexParamas([rc], [rcParams])
+
+if False:
+    rc('font',**{'family':'sans-serif','sans-serif':['Helvetica']})
+    ## for Palatino and other serif fonts use:
+    #rc('font',**{'family':'serif','serif':['Palatino']})
+    rc('text', usetex=True)
+    ## To align latex text and symbols!!!
+    ## https://stackoverflow.com/questions/40424249/vertical-alignment-of-matplotlib-legend-labels-with-latex-math
+    rcParams['text.latex.preview'] = True
+    rcParams['text.latex.preamble']=[r"\usepackage{amsmath}"]
 
 x_lim = 0.042
 rm1_axis = np.linspace(0, x_lim, 2**7)
@@ -292,7 +298,7 @@ if abs(min_y) < abs(max_y):
     _inset_loc = 'upper right'
     _label_pos = 0.875
 
-ax1.text(0.025, _label_pos, r'$\boldsymbol{E}^{(6)}_{P4,F6}\quad \text{vs}\quad \boldsymbol{E}^{(6)}_{P2,F6}$',
+ax1.text(0.025, _label_pos, r'$\bf{E}^{(6)}_{P4,F6}\quad \mathrm{vs}\quad \bf{E}^{(6)}_{P2,F6}$',
          transform = ax1.transAxes, fontsize=11)
 ax1.text(0.95, 1.075, '$(a)$', transform = ax1.transAxes, fontsize=f_s)
 
@@ -327,10 +333,13 @@ ax1i.set_xlim([-7, 47])
 ax1i.set_ylabel('$n$', fontsize=10)
 
 ## Setting tivks size
-for tick in ax1i.yaxis.get_major_ticks():
-    tick.label.set_fontsize(5)
-for tick in ax1i.xaxis.get_major_ticks():
-    tick.label.set_fontsize(5)
+SetAxTicksFont(ax1i, 5)
+
+if False:
+    for tick in ax1i.yaxis.get_major_ticks():
+        tick.label.set_fontsize(5)
+    for tick in ax1i.xaxis.get_major_ticks():
+        tick.label.set_fontsize(5)
 
 ## Setting ticks position
 ax1i.tick_params(axis="y",direction="in", pad = -9)
@@ -375,7 +384,7 @@ if abs(min_y) < abs(max_y):
     _inset_loc = 'upper right'
     _label_pos = 0.875
 
-ax2.text(0.025, _label_pos, r'$\boldsymbol{E}^{(8)}_{P4,F6}\quad \text{vs}\quad \boldsymbol{E}^{(8)}_{P2,F8}$',
+ax2.text(0.025, _label_pos, r'$\bf{E}^{(8)}_{P4,F6}\quad \mathrm{vs}\quad \bf{E}^{(8)}_{P2,F8}$',
          transform = ax2.transAxes, fontsize=11)
 ax2.text(0.95, 1.075, '$(b)$', transform = ax2.transAxes, fontsize=f_s)
 
@@ -394,10 +403,13 @@ ax2i.set_xlim([-7, 47])
 ax2i.set_ylabel('$n$', fontsize=10)
 
 ## Setting tivks size
-for tick in ax2i.yaxis.get_major_ticks():
-    tick.label.set_fontsize(5)
-for tick in ax2i.xaxis.get_major_ticks():
-    tick.label.set_fontsize(5)
+SetAxTicksFont(ax2i, 5)
+
+if False:
+    for tick in ax2i.yaxis.get_major_ticks():
+        tick.label.set_fontsize(5)
+    for tick in ax2i.xaxis.get_major_ticks():
+        tick.label.set_fontsize(5)
 
 ## Setting ticks position
 ax2i.tick_params(axis="y",direction="in", pad = -9)
@@ -442,7 +454,7 @@ if abs(min_y) < abs(max_y):
     _inset_loc = 'upper right'
     _label_pos = 0.875
 
-ax3.text(0.025, _label_pos, r'$\boldsymbol{E}^{(10)}_{P4,F6}\quad \text{vs}\quad \boldsymbol{E}^{(10)}_{P2,F10}$',
+ax3.text(0.025, _label_pos, r'$\bf{E}^{(10)}_{P4,F6}\quad \mathrm{vs}\quad \bf{E}^{(10)}_{P2,F10}$',
          transform = ax3.transAxes, fontsize=11)
 ax3.text(0.95, 1.075, '$(c)$', transform = ax3.transAxes, fontsize=f_s)
 
@@ -461,10 +473,13 @@ ax3i.set_xlim([-7, 47])
 ax3i.set_ylabel('$n$', fontsize=10)
 
 ## Setting tivks size
-for tick in ax3i.yaxis.get_major_ticks():
-    tick.label.set_fontsize(5)
-for tick in ax3i.xaxis.get_major_ticks():
-    tick.label.set_fontsize(5)
+SetAxTicksFont(ax3i, 5)
+
+if False:
+    for tick in ax3i.yaxis.get_major_ticks():
+        tick.label.set_fontsize(5)
+    for tick in ax3i.xaxis.get_major_ticks():
+        tick.label.set_fontsize(5)
 
 ## Setting ticks position
 ax3i.tick_params(axis="y",direction="in", pad = -9)
@@ -509,7 +524,7 @@ if abs(min_y) < abs(max_y):
     _inset_loc = 'upper right'
     _label_pos = 0.875
 
-ax4.text(0.025, _label_pos, r'$\boldsymbol{E}^{(12)}_{P4,F6}\quad \text{vs}\quad \boldsymbol{E}^{(12)}_{P2,F12}$',
+ax4.text(0.025, _label_pos, r'$\bf{E}^{(12)}_{P4,F6}\quad \mathrm{vs}\quad \bf{E}^{(12)}_{P2,F12}$',
          transform = ax4.transAxes, fontsize=11)
 ax4.text(0.95, 1.075, '$(d)$', transform = ax4.transAxes, fontsize=f_s)
 
@@ -528,10 +543,13 @@ ax4i.set_xlim([-7, 47])
 ax4i.set_ylabel('$n$', fontsize=10)
 
 ## Setting tivks size
-for tick in ax4i.yaxis.get_major_ticks():
-    tick.label.set_fontsize(5)
-for tick in ax4i.xaxis.get_major_ticks():
-    tick.label.set_fontsize(5)
+SetAxTicksFont(ax4i, 5)
+
+if False:
+    for tick in ax4i.yaxis.get_major_ticks():
+        tick.label.set_fontsize(5)
+    for tick in ax4i.xaxis.get_major_ticks():
+        tick.label.set_fontsize(5)
 
 ## Setting ticks position
 ax4i.tick_params(axis="y",direction="in", pad = -9)
@@ -598,7 +616,7 @@ if abs(min_y) < abs(max_y):
     _inset_loc = 'upper right'
     _label_pos = 0.875
 
-ax5.text(0.025, _label_pos, r'$\boldsymbol{E}^{(6)}_{P4,F6}\quad \text{vs}\quad \boldsymbol{E}^{(6)}_{P2,F6}$',
+ax5.text(0.025, _label_pos, r'$\bf{E}^{(6)}_{P4,F6}\quad \mathrm{vs}\quad \bf{E}^{(6)}_{P2,F6}$',
          transform = ax5.transAxes, fontsize=11)
 ax5.text(0.95, 1.075, '$(e)$', transform = ax5.transAxes, fontsize=f_s)
 #ax5.text(39, 3.5e-12, '$(d)$', fontsize=f_s)
@@ -618,10 +636,13 @@ ax5i.set_xlim([-7, 47])
 ax5i.set_ylabel('$n$', fontsize=10)
 
 ## Setting tivks size
-for tick in ax5i.yaxis.get_major_ticks():
-    tick.label.set_fontsize(5)
-for tick in ax5i.xaxis.get_major_ticks():
-    tick.label.set_fontsize(5)
+SetAxTicksFont(ax5i, 5)
+
+if False:
+    for tick in ax5i.yaxis.get_major_ticks():
+        tick.label.set_fontsize(5)
+    for tick in ax5i.xaxis.get_major_ticks():
+        tick.label.set_fontsize(5)
 
 ## Setting ticks position
 ax5i.tick_params(axis="y",direction="in", pad = -9)
@@ -662,7 +683,7 @@ if abs(min_y) < abs(max_y):
     _inset_loc = 'upper right'
     _label_pos = 0.875
 
-ax6.text(0.025, _label_pos, r'$\boldsymbol{E}^{(8)}_{P4,F6}\quad \text{vs}\quad \boldsymbol{E}^{(8)}_{P2,F8}$',
+ax6.text(0.025, _label_pos, r'$\bf{E}^{(8)}_{P4,F6}\quad \mathrm{vs}\quad \bf{E}^{(8)}_{P2,F8}$',
          transform = ax6.transAxes, fontsize=11)
 ax6.text(0.95, 1.075, '$(f)$', transform = ax6.transAxes, fontsize=f_s)
 
@@ -681,10 +702,13 @@ ax6i.set_xlim([-7, 47])
 ax6i.set_ylabel('$n$', fontsize=10)
 
 ## Setting tivks size
-for tick in ax6i.yaxis.get_major_ticks():
-    tick.label.set_fontsize(5)
-for tick in ax6i.xaxis.get_major_ticks():
-    tick.label.set_fontsize(5)
+SetAxTicksFont(ax6i, 5)
+
+if False:
+    for tick in ax6i.yaxis.get_major_ticks():
+        tick.label.set_fontsize(5)
+    for tick in ax6i.xaxis.get_major_ticks():
+        tick.label.set_fontsize(5)
 
 ## Setting ticks position
 ax6i.tick_params(axis="y",direction="in", pad = -9)
@@ -725,7 +749,7 @@ if abs(min_y) < abs(max_y):
     _inset_loc = 'upper right'
     _label_pos = 0.875
 
-ax7.text(0.025, _label_pos, r'$\boldsymbol{E}^{(10)}_{P4,F6}\quad \text{vs}\quad \boldsymbol{E}^{(10)}_{P2,F10}$', transform = ax7.transAxes, fontsize=11)
+ax7.text(0.025, _label_pos, r'$\bf{E}^{(10)}_{P4,F6}\quad \mathrm{vs}\quad \bf{E}^{(10)}_{P2,F10}$', transform = ax7.transAxes, fontsize=11)
 ax7.text(0.95, 1.075, '$(g)$', transform = ax7.transAxes, fontsize=f_s)
 
 ### INSET
@@ -743,10 +767,13 @@ ax7i.set_xlim([-7, 47])
 ax7i.set_ylabel('$n$', fontsize=10)
 
 ## Setting tivks size
-for tick in ax7i.yaxis.get_major_ticks():
-    tick.label.set_fontsize(5)
-for tick in ax7i.xaxis.get_major_ticks():
-    tick.label.set_fontsize(5)
+SetAxTicksFont(ax7i, 5)
+
+if False:
+    for tick in ax7i.yaxis.get_major_ticks():
+        tick.label.set_fontsize(5)
+    for tick in ax7i.xaxis.get_major_ticks():
+        tick.label.set_fontsize(5)
 
 ## Setting ticks position
 ax7i.tick_params(axis="y",direction="in", pad = -9)
@@ -788,7 +815,7 @@ if abs(min_y) < abs(max_y):
     _inset_loc = 'upper right'
     _label_pos = 0.1
 
-ax8.text(0.025, _label_pos, r'$\boldsymbol{E}^{(12)}_{P4,F6}\quad \text{vs}\quad \boldsymbol{E}^{(12)}_{P2,F12}$', transform = ax8.transAxes, fontsize=11)
+ax8.text(0.025, _label_pos, r'$\bf{E}^{(12)}_{P4,F6}\quad \mathrm{vs}\quad \bf{E}^{(12)}_{P2,F12}$', transform = ax8.transAxes, fontsize=11)
 ax8.text(0.95, 1.075, '$(h)$', transform = ax8.transAxes, fontsize=f_s)
 
 ### INSET
@@ -806,10 +833,13 @@ ax8i.set_xlim([-7, 47])
 ax8i.set_ylabel('$n$', fontsize=10)
 
 ## Setting tivks size
-for tick in ax8i.yaxis.get_major_ticks():
-    tick.label.set_fontsize(5)
-for tick in ax8i.xaxis.get_major_ticks():
-    tick.label.set_fontsize(5)
+SetAxTicksFont(ax8i, 5)
+
+if False:
+    for tick in ax8i.yaxis.get_major_ticks():
+        tick.label.set_fontsize(5)
+    for tick in ax8i.xaxis.get_major_ticks():
+        tick.label.set_fontsize(5)
 
 ## Setting ticks position
 ax8i.tick_params(axis="y",direction="in", pad = -9)
