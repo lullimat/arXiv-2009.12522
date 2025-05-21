@@ -202,8 +202,11 @@ if not AveU.Read():
 
             from scipy import interpolate
 
-            UX_spl = interpolate.interp2d(XRange, YRange, UX, kind='cubic')
-            UY_spl = interpolate.interp2d(XRange, YRange, UY, kind='cubic')
+            # UX_spl = interpolate.interp2d(XRange, YRange, UX, kind='cubic')
+            # UY_spl = interpolate.interp2d(XRange, YRange, UY, kind='cubic')
+
+            UX_spl = interpolate.RectBivariateSpline(XRange, YRange, UX, kx=3, ky=3)
+            UY_spl = interpolate.RectBivariateSpline(XRange, YRange, UY, kx=3, ky=3)
 
             _u_profiles = np.zeros([_n_bins, _r_range.shape[0]])
 
