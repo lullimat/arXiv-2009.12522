@@ -129,8 +129,7 @@ import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
 from matplotlib.ticker import FormatStrFormatter
 
-from mpl_toolkits.axes_grid1.inset_locator import (inset_axes, InsetPosition,
-                                                  mark_inset)
+from mpl_toolkits.axes_grid1.inset_locator import (inset_axes, mark_inset)
 
 import matplotlib.ticker as ticker
 from sklearn.neighbors import KernelDensity
