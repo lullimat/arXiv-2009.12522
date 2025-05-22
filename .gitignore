@@ -5,4 +5,5 @@ SCEqCache
 AverageProfiles
 reproduced-figures/
 reproduced-results/
+SCEqCache.json
 !.gitignore
