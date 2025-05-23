@@ -22,3 +22,5 @@ As of today, after much testing Google Chrome has offered the most reliable expr
 ## Dependencies
 A part from the python dependencies a working "latex" environment needs to be installed on the system in order to reproduce the plots which contain latex symbols
 
+## Disk Requirements
+The output of the fully executed notebook has a disk footprint of 143MB
